@@ -16,6 +16,18 @@ const statusSpan = document.getElementById('status-span');
 const container = document.querySelector('.container');
 const displayNotesDiv = document.getElementById('display-notes-div');
 
+const deleteDoc = (id) => {
+    notesRef.doc(id).delete()
+        .then(() => {
+            console.log('doc', id, 'deleted');
+        }).catch((error) => {
+            console.log(error);
+        });
+
+    // stops the jumping of the page to top on clicking
+    return false;
+}
+
 
 noteViewButton.addEventListener('click', () => {
 
@@ -25,10 +37,25 @@ noteViewButton.addEventListener('click', () => {
     container.style.display = 'none';
 
 
-    let title, body, timestamp, data, hr, h2, h6, p;
+    let title, body, timestamp, id, data, hr, h2, h6, p, a;
 
     notesRef.get()
         .then((snapShot) => {
+
+            // gets the number of notes being displayed right now.
+            // displayNotesDiv.getElementsByTagName('*').length gets the number of child 
+            // elements in the 'displayNotesDiv'
+            // we subtract 2 from it because of the top 'hr' and the bottom 'p' element
+            // then we divide it by 5 because the number of elements being created to display
+            // a single note is 5. The result is the number of notes that we have in display
+            let numberOfNotes = (displayNotesDiv.getElementsByTagName('*').length - 2) / 5;
+
+            // if the list of notes is already populated, first remove them from the viewport
+            // then reconstruct the notes again by reading them from the firestore
+            if (numberOfNotes > 1) {
+                displayNotesDiv.innerHTML = '';
+            }
+
             snapShot.forEach((doc) => {
 
                 // these nodes are created for each document
@@ -36,9 +63,12 @@ noteViewButton.addEventListener('click', () => {
                 h2 = document.createElement('h2');
                 h6 = document.createElement('h6');
                 p = document.createElement('p');
+                a = document.createElement('a');
 
                 // data() method contains the document data
                 data = doc.data();
+                // the .(dot) id property gives us the auto-id of the document in context
+                id = doc.id;
 
                 // we can access each property with their appropirate name with the
                 // . (dot) operator
@@ -51,16 +81,23 @@ noteViewButton.addEventListener('click', () => {
                 h6.innerText = timestamp;
                 p.innerText = body;
 
+                // adding a delete method to the notes
+                a.innerText = 'delete';
+                a.href = '';
+                a.onclick = `deleteDoc(${id})`;
+
                 // finally, we append each element in the div to make them
                 // show up in our page
                 displayNotesDiv.appendChild(h2)
                 displayNotesDiv.appendChild(h6);
                 displayNotesDiv.appendChild(p);
+                displayNotesDiv.appendChild(a);
                 displayNotesDiv.appendChild(hr);
             });
         }).then(() => {
             p = document.createElement('p');
-            p.innerText = '********* END *********';
+            p.innerText = '************* END *************';
+            p.style.fontWeight = '800';
             displayNotesDiv.appendChild(p);
 
             statusSpan.innerText = 'idle...';
@@ -72,6 +109,7 @@ noteViewButton.addEventListener('click', () => {
             statusSpan.innerText = 'oops... something went wrong!';
             console.log(error);
         });
+
 });
 
 
@@ -83,18 +121,17 @@ noteSaveButton.addEventListener('click', (evt) => {
     const title = noteTitleInput.value.trim();
     const body = noteBodyTexArea.value.trim();
 
-    // if title isn't empty
+    // won't store notes without a title
     if (title && title.length > 0) {
 
         const note = {
             title,
             body,
-            // client's time
-            timestamp: new Date(),
+            timestamp: new Date(), // client's time
         };
 
         // writes to the firestore using the data from the 'note' object
-        sendNote(note); // fron __init.js
+        saveNote(note); // from __init.js
 
     } else {
         // title can't be empty.
@@ -104,13 +141,17 @@ noteSaveButton.addEventListener('click', (evt) => {
     evt.preventDefault();
 });
 
+// save input values inside the sessionStorage of the browser
 window.addEventListener('beforeunload', () => {
+
+    // only save if the title field is populated
     if (noteTitleInput.value) {
         sessionStorage.setItem('title', noteTitleInput.value.trim());
         sessionStorage.setItem('body', noteBodyTexArea.value.trim());
     }
 });
 
+// read the values from sessionStorage and populate the input fields appropriately
 window.addEventListener('load', () => {
     const title = sessionStorage.getItem('title');
     const body = sessionStorage.getItem('body');

@@ -19,7 +19,7 @@ const notesRef = db.collection('notes');
  * inside the 'notes' collection
  * @param {object} note object containing the note title, body and the event timestamp
  */
-const sendNote = (note) => {
+const saveNote = (note) => {
 
     notesRef.doc().set(note)
         .then(() => {
@@ -43,15 +43,3 @@ const sendNote = (note) => {
         statusSpan.innerText = 'idle...';
     }, 2000);
 };
-
-
-/**
- * Returns the query object containing references to the documents matching
- * the title that the user searched for
- * @param {string} title title of the note
- */
-const getNote = (title) => {
-
-    // firebase's where clause returns an array of refs inside the promise
-    return notesRef.where('title', '==', title);
-}
