@@ -1,6 +1,5 @@
 .container {
     max-width: 540px;
-    margin-top: 5%;
 }
 
 #note-body-textarea {
@@ -15,6 +14,20 @@
     width: 100%;
 }
 
+#view-notes-div {
+    max-width: 540px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 #note-view-button {
     width: 100%;
+    max-width: 500px;
+    margin-top: 0px;
+}
+
+#header-div {
+    margin-top: 5%;
+    text-align: center;
 }

@@ -11,28 +11,29 @@ firebase.initializeApp({
 // reference to an instance of Firebase Firestore
 const db = firebase.firestore();
 
+// a reference to the notes collection inside the default firestore database
+const notesRef = db.collection('notes');
 
 /**
- * Writes the note to the firestore database creating a document inside the 'notes' collection
+ * Writes the note to the firestore database creating a document 
+ * inside the 'notes' collection
  * @param {object} note object containing the note title, body and the event timestamp
  */
 const sendNote = (note) => {
 
-    // a reference to the notes collection inside the default firestore database
-    const notesRef = db.collection('notes');
-
-
     notesRef.doc().set(note)
         .then(() => {
+
             // updates the status after the note is created in the firestore
             statusSpan.innerText = 'note created';
-            sessionStorage.clear();
-        }).catch(error => {
 
+            // clear the locally stored note data since 
+            // we have saved it to the Firestore
+            sessionStorage.clear();
+        }).catch((error) => {
             // something went wrong. Make sure that you have set up the permissions 
             // to allow anyone to write to the Firestore
             // READ MORE: https://firebase.google.com/docs/firestore/security/get-started
-            console.log(error);
             statusSpan.innerText = 'oops... something went wrong!';
         });
 
@@ -42,3 +43,15 @@ const sendNote = (note) => {
         statusSpan.innerText = 'idle...';
     }, 2000);
 };
+
+
+/**
+ * Returns the query object containing references to the documents matching
+ * the title that the user searched for
+ * @param {string} title title of the note
+ */
+const getNote = (title) => {
+
+    // firebase's where clause returns an array of refs inside the promise
+    return notesRef.where('title', '==', title);
+}

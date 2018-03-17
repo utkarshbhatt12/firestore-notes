@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div id="header-div">
         <h1>
             <a href="/">🔥FIRESTORE NOTES🔥</a>
         </h1>
@@ -21,17 +21,26 @@
             <h4>Status:
                 <span id="status-span">idle...</span>
             </h4>
-            <form>
-                <fieldset>
-                    <input id="note-title-input" type="text" placeholder="note title" maxlength="100" required autofocus>
-                    <textarea rows="8" id="note-body-textarea" type="text" placeholder="note body" required></textarea>
-                </fieldset>
-                <button id="note-save-button" class="button button-outline" type="submit">SAVE</button>
-            </form>
         </div>
-        <button id="note-view-button" class="button button-outline" type="submit">VIEW NOTES</button>
     </div>
+    <div class="container">
+        <form>
+            <fieldset>
+                <input id="note-title-input" type="text" placeholder="note title" maxlength="100" required autofocus>
+                <textarea rows="8" id="note-body-textarea" type="text" placeholder="note body" required></textarea>
+            </fieldset>
+            <button id="note-save-button" class="button button-outline" type="submit">SAVE</button>
+        </form>
+    </div>
+    </div>
+    <div id="view-notes-div">
+        <button id="note-view-button" class="button button-outline" type="submit">VIEW NOTES</button>
 
+        <div id="display-notes-div">
+            <hr>
+        </div>
+
+    </div>
     <!-- firebase imports -->
     <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase-firestore.js"></script>
