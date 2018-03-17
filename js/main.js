@@ -2,45 +2,45 @@
 const noteTitleInput = document.getElementById('note-title-input');
 const noteBodyTexArea = document.getElementById('note-body-textarea');
 
+
 // buttons
-const noteSubmitButton = document.getElementById('note-submit-button');
-const viewSavedButton = document.getElementById('view-saved-button');
-const addNotesButton = document.getElementById('add-notes-button');
+const noteSaveButton = document.getElementById('note-save-button');
+const noteViewButton = document.getElementById('note-view-button');
+
 
 // spans
 const statusSpan = document.getElementById('status-span');
 
-// divs
-const addNotesDiv = document.getElementById('add-notes-div');
-const viewNotesDiv = document.getElementById('view-notes-div');
 
-
-noteTitleInput.addEventListener('focus', () => {
-    noteBodyTexArea.style.display = 'block';
-});
-
-noteSubmitButton.addEventListener('click', e => {
-    e.preventDefault();
+// execution starts here when user clicks the 'save' button
+noteSaveButton.addEventListener('click', (evt) => {
     statusSpan.innerText = 'working...';
 
+    // get values from text fields
     const title = noteTitleInput.value.trim();
     const body = noteBodyTexArea.value.trim();
 
-    if (title) {
+    // if title isn't empty
+    if (title && title.length > 0) {
         const note = {
             title,
             body,
-            // maps to firebase's server time
-            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            // client's time
+            timestamp: new Date(),
         }
-        sendNote(note);
+
+        // writes to the firestore using the data from the 'note' object
+        sendNote(note); // fron __init.js
     } else {
+        // title can't be empty.
         statusSpan.innerText = 'the title can\'t be empty';
     }
+
+    evt.preventDefault();
 });
 
 window.addEventListener('beforeunload', () => {
-    if (noteTitleInput.value.trim()) {
+    if (noteTitleInput.value) {
         sessionStorage.setItem('title', noteTitleInput.value.trim());
         sessionStorage.setItem('body', noteBodyTexArea.value.trim());
     }
@@ -57,19 +57,3 @@ window.addEventListener('load', () => {
         noteBodyTexArea.value = body;
     }
 });
-
-function sendNote(note) {
-    db.collection('notes').doc().set(note)
-        .then(() => {
-            statusSpan.innerText = 'note created';
-            noteTitleInput.innerText = '';
-            noteBodyTexArea.innerText = '';
-        }).catch(error => {
-            console.log(error);
-            statusSpan.innerText = 'oops... something went wrong!';
-        });
-
-    setTimeout(() => {
-        statusSpan.innerText = 'idle...';
-    }, 2000);
-}

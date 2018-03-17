@@ -10,3 +10,11 @@
 #note-body-textarea {
     resize: vertical;
 }
+
+#note-save-button {
+    width: 100%;
+}
+
+#note-view-button {
+    width: 100%;
+}
