@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.6.3/firebaseui.css" />
+    <link rel="stylesheet" href="./css/styles.css">
+    <title>Firebase Notes App</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>
+            <a href="javascript:location.reload();">🔥FIRESTORE NOTES🔥</a>
+        </h1>
+        <div id="add-notes-div">
+            <h4>Status:
+                <span id="status-span">idle...</span>
+            </h4>
+            <form target="#">
+                <fieldset>
+                    <input id="note-title-input" type="text" placeholder="note title" maxlength="100" required autofocus>
+                    <textarea rows="8" id="note-body-textarea" type="text" placeholder="note body" required></textarea>
+                </fieldset>
+                <button id="note-submit-button" class="button button-outline" type="submit">SAVE</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- firebase imports -->
+    <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase-firestore.js"></script>
+
+    <!-- Firebase init -->
+    <script src="./js/firebase/__init.js"></script>
+
+    <!-- custom js -->
+    <script src="./js/main.js"></script>
+</body>
+
+</html>

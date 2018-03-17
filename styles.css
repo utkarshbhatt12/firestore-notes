@@ -1,0 +1,8 @@
+.container {
+    max-width: 540px;
+    margin-top: 5%;
+}
+
+#note-body-textarea {
+    height: 120px;
+}
