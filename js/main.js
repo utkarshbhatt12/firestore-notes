@@ -91,7 +91,7 @@ noteViewButton.addEventListener('click', () => {
                 statusSpan.innerText = 'idle...';
             } else {
                 snapShot.forEach((doc) => {
-                    drawNote(doc); // from __init.js
+                    drawNote(doc); // from crud.js
                 });
             }
         }).then(() => {
@@ -136,7 +136,7 @@ noteSaveButton.addEventListener('click', (evt) => {
         };
 
         // writes to the firestore using the data from the 'note' object
-        saveNote(note); // from __init.js
+        saveNote(note); // from crud.js
 
     } else {
         // title can't be empty.
