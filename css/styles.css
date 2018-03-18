@@ -1,9 +1,11 @@
 :root {
-    --body-width-allowed: 540px;
+    --body-width: 540px;
 }
 
-.container {
-    max-width: var(--body-width-allowed);
+#input-div {
+    max-width: var(--body-width);
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #note-body-textarea {
@@ -19,7 +21,7 @@
 }
 
 #view-notes-div {
-    max-width: var(--body-width-allowed);
+    max-width: var(--body-width);
     text-align: center;
     margin-left: auto;
     margin-right: auto;
@@ -27,7 +29,7 @@
 
 #note-view-button {
     width: 100%;
-    max-width: 500px;
+    max-width: var(--body-width);
     margin-top: 0px;
 }
 

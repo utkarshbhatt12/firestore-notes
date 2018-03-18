@@ -13,6 +13,7 @@
 </head>
 
 <body>
+
     <div id="header-div">
         <h1>
             <a href="/">🔥FIRESTORE NOTES🔥</a>
@@ -23,7 +24,8 @@
             </h4>
         </div>
     </div>
-    <div class="container">
+
+    <div id="input-div">
         <form>
             <fieldset>
                 <input id="note-title-input" type="text" placeholder="note title" maxlength="100" required autofocus>
@@ -32,15 +34,14 @@
             <button id="note-save-button" class="button button-outline" type="submit">SAVE</button>
         </form>
     </div>
-    </div>
+
     <div id="view-notes-div">
         <button id="note-view-button" class="button button-outline" type="submit">VIEW NOTES</button>
-
         <div id="display-notes-div">
             <hr>
         </div>
-
     </div>
+
     <!-- firebase imports -->
     <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase-firestore.js"></script>

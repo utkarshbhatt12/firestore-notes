@@ -13,7 +13,7 @@ const statusSpan = document.getElementById('status-span');
 
 
 // divs
-const container = document.querySelector('.container');
+const inputDiv = document.getElementById('input-div');
 const displayNotesDiv = document.getElementById('display-notes-div');
 
 
@@ -25,6 +25,8 @@ const displayNotesDiv = document.getElementById('display-notes-div');
  * @param {string} body body of the note
  */
 const editDoc = (id, title, body) => {
+
+    // remove all notes from viewport
     displayNotesDiv.innerHTML = '';
 
     const inputTitle = document.createElement('input');
@@ -54,7 +56,7 @@ noteViewButton.addEventListener('click', () => {
     statusSpan.innerText = 'getting docs from Firestore...';
 
     // hide the fields
-    container.style.display = 'none';
+    inputDiv.style.display = 'none';
 
     let p;
 
