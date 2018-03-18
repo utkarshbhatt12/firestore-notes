@@ -4,4 +4,6 @@ This ia very simple notes app which uses the Firestore databse to store notes
 
 ## TODO
 
-Implement notes reading functionality
+~~Add notes reading functionality~~
+Add search functionality
+Add edit functionality
