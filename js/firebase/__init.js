@@ -1,6 +1,6 @@
 'use strict';
 
-// firebase stuff. You can find this in the https://console.firebase.google.com page
+// firebase stuff. You can find this in the https://console.firebase.google.com/<project-name> page
 firebase.initializeApp({
     apiKey: "AIzaSyByLHLc7CLtlsimXHLNWGsbV4eiGuZIE4A",
     authDomain: "contactform-1b262.firebaseapp.com",
@@ -13,7 +13,10 @@ const db = firebase.firestore();
 
 
 // a reference to the notes collection inside the default firestore database
+// this is the collection where each note will be stored as a unique document
 const notesRef = db.collection('notes');
+
+const timeoutDuration = 2000;
 
 
 /**
@@ -43,8 +46,9 @@ const saveNote = (note) => {
     // the app is doing nothing after that
     setTimeout(() => {
         statusSpan.innerText = 'idle...';
-    }, 2000);
+    }, timeoutDuration);
 };
+
 
 /**
  * Takes in a document ID and deletes it from the friestore
@@ -56,6 +60,9 @@ const deleteDoc = (id) => {
     notesRef.doc(id).delete()
         .then(() => {
             statusSpan.innerText = 'deleted...';
+
+            //TODO: reload the notes from firestore
+            // after deleting the note
         }).catch((error) => {
             console.log(error);
             statusSpan.innerText = 'oops... something went wrong!';
@@ -63,20 +70,51 @@ const deleteDoc = (id) => {
 
     setTimeout(() => {
         statusSpan.innerText = 'idle...';
-    }, 2000);
+    }, timeoutDuration);
 
     // stops the jumping of the page to top on clicking
     return false;
 };
 
 
-const editDoc = (id) => {
-    // displayNotesDiv.innerHTML = '';
+/**
+ * 
+ * @param {string} id id Document's auto-id from Firestore
+ */
+const updateNote = (id) => {
 
-    // const inputTitle = document.createElement('input');
-    // const textareaBody = document.createElement('textarea');
+    // get values from the new input fields
+    const newInputTitle = document.getElementById('new-input-title').value;
+    const newTextAreaBody = document.getElementById('new-body-textarea').value;
 
-    console.log('edit clicked', id);
+    // input title shouldn't be empty
+    if (newInputTitle && newInputTitle.length > 0) {
+        statusSpan.innerText = 'updating the note';
+
+        // set() method takes in the object containing the 
+        // key value pair to be updated
+        notesRef.doc(id).set({
+            title: newInputTitle,
+            body: newTextAreaBody,
+            updateTimestamp: new Date(),
+        }, {
+            // setting merge to true instructs Firestore to add the new values to
+            // the document and not fully replace its fields
+            merge: true
+        }).then(() => {
+            // after updating the note is completed, change the status
+            statusSpan.innerText = 'note updated';
+        }).catch((error) => {
+            console.log(error);
+            statusSpan.innerText = 'oops... something went wrong!';
+        });
+
+        // after everything is done, simply set the status to idle
+        setTimeout(() => {
+            statusSpan.innerText = 'idle...';
+        }, timeoutDuration);
+
+    }
 }
 
 
@@ -120,7 +158,7 @@ const drawNote = (doc) => {
 
     aEdit.innerText = ' | edit';
     aEdit.href = '#';
-    aEdit.setAttribute('onclick', `editDoc("${id}")`);
+    aEdit.setAttribute('onclick', `editDoc("${id}", "${title}", "${body}")`);
 
     // console.log(`editDoc("${id}")`);
 

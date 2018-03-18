@@ -17,6 +17,37 @@ const container = document.querySelector('.container');
 const displayNotesDiv = document.getElementById('display-notes-div');
 
 
+/**
+ * Creates the input fields in the viewport for updating
+ * the note using the id of the document
+ * @param {string} id id Document's auto-id from Firestore
+ * @param {string} title title of the note
+ * @param {string} body body of the note
+ */
+const editDoc = (id, title, body) => {
+    displayNotesDiv.innerHTML = '';
+
+    const inputTitle = document.createElement('input');
+    inputTitle.setAttribute('placeholder', 'title here');
+    inputTitle.setAttribute('id', 'new-input-title');
+    inputTitle.value = title;
+
+    const textareaBody = document.createElement('textarea');
+    textareaBody.setAttribute('placeholder', 'body here');
+    textareaBody.setAttribute('id', 'new-body-textarea');
+    textareaBody.innerText = body;
+
+    const updateButton = document.createElement('button');
+    updateButton.setAttribute('class', 'button button-outline');
+    updateButton.innerHTML = 'UPDATE';
+    updateButton.setAttribute('onclick', `updateNote("${id}")`);
+
+    displayNotesDiv.appendChild(inputTitle);
+    displayNotesDiv.appendChild(textareaBody);
+    displayNotesDiv.appendChild(updateButton);
+}
+
+
 noteViewButton.addEventListener('click', () => {
 
     statusSpan.innerText = 'getting docs from Firestore...';
