@@ -76,6 +76,12 @@ noteViewButton.addEventListener('click', () => {
             // then reconstruct the notes again by reading them from the firestore
             if (numberOfNotes > 1) {
                 displayNotesDiv.innerHTML = '';
+
+                // want to keep the first element of the notes list 
+                // to be the hr element
+                // this is to keep some spacing between the VIEW NOTES button
+                // and the actual notes
+                displayNotesDiv.appendChild(document.createElement('hr'));
             }
 
 

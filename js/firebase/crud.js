@@ -96,7 +96,6 @@ const updateNote = (id) => {
         setTimeout(() => {
             statusSpan.innerText = 'idle...';
         }, timeoutDuration);
-
     }
 }
 

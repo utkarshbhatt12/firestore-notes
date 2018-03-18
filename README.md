@@ -14,6 +14,10 @@ You can check the explaination of the code at my article on [Firebase Firestore 
 
 - Add search functionality
 
+- Clear inputs after pressing SAVE
+
+- Remove note data from sessionStorage after a successful SAVE operation to the Firestore
+
 ## REQUIREMENTS
 
 - A Google account for Firebase console.
