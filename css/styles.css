@@ -1,5 +1,9 @@
+:root {
+    --body-width-allowed: 540px;
+}
+
 .container {
-    max-width: 540px;
+    max-width: var(--body-width-allowed);
 }
 
 #note-body-textarea {
@@ -15,7 +19,7 @@
 }
 
 #view-notes-div {
-    max-width: 540px;
+    max-width: var(--body-width-allowed);
     text-align: center;
     margin-left: auto;
     margin-right: auto;
