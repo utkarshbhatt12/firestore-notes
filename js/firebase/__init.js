@@ -2,10 +2,10 @@
 
 // firebase stuff. You can find this in the https://console.firebase.google.com/<project-name> page
 firebase.initializeApp({
-    apiKey: "AIzaSyByLHLc7CLtlsimXHLNWGsbV4eiGuZIE4A",
-    authDomain: "contactform-1b262.firebaseapp.com",
-    databaseURL: "https://contactform-1b262.firebaseio.com",
-    projectId: "contactform-1b262"
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: ""
 });
 
 // reference to an instance of Firebase Firestore
@@ -16,6 +16,7 @@ const db = firebase.firestore();
 // this is the collection where each note will be stored as a unique document
 const notesRef = db.collection('notes');
 
+// timeout for the status to update --> 2 seconds
 const timeoutDuration = 2000;
 
 
@@ -51,7 +52,7 @@ const saveNote = (note) => {
 
 
 /**
- * Takes in a document ID and deletes it from the friestore
+ * Takes in a document ID and deletes it from the firestore
  * @param {string} id Document's auto-id from Firestore
  */
 const deleteDoc = (id) => {
@@ -78,7 +79,7 @@ const deleteDoc = (id) => {
 
 
 /**
- * 
+ * takes in the id of the document and updates it content based on user input
  * @param {string} id id Document's auto-id from Firestore
  */
 const updateNote = (id) => {
@@ -159,8 +160,6 @@ const drawNote = (doc) => {
     aEdit.innerText = ' | edit';
     aEdit.href = '#';
     aEdit.setAttribute('onclick', `editDoc("${id}", "${title}", "${body}")`);
-
-    // console.log(`editDoc("${id}")`);
 
     // finally, we append each element in the div to make them
     // show up in our page

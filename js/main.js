@@ -48,6 +48,7 @@ const editDoc = (id, title, body) => {
 }
 
 
+
 noteViewButton.addEventListener('click', () => {
 
     statusSpan.innerText = 'getting docs from Firestore...';
