@@ -1,0 +1,29 @@
+{
+  "name": "firestore-notes-app",
+  "version": "1.0.0",
+  "description": "A simple notes app using Firestore API",
+  "main": "main.js",
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint .",
+    "serve": "live-server ./index.html",
+    "precommit": "npm run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/utkarshbhatt12/firestore-notes-app.git"
+  },
+  "author": "Utkarsh Bhatt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/utkarshbhatt12/firestore-notes-app/issues"
+  },
+  "homepage": "https://github.com/utkarshbhatt12/firestore-notes-app#readme",
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-google": "^0.9.1",
+    "eslint-plugin-import": "^2.10.0",
+    "eslint-plugin-jsdoc": "^3.6.2",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-security": "^1.4.0"
+  }
+}

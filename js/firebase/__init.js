@@ -2,9 +2,7 @@
 
 // firebase stuff. You can find this in the https://console.firebase.google.com/<project-name> page
 firebase.initializeApp({
-    apiKey: '',
-    databaseURL: '',
-    projectId: '',
+  projectId: '...',
 });
 
 // reference to an instance of Firebase Firestore
